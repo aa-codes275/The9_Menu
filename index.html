@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 9 Space Menu</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&family=Orbitron:wght@500;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="space-theme">
+    <div class="stars-overlay"></div>
+
+    <div id="start-screen" class="portal-container">
+        <div class="logo-space-main">
+            <span class="nine-text">NINE</span>
+            <div class="nine-orbit">9</div>
+            <span class="the-text">THE</span>
+        </div>
+        <h2 class="portal-heading">اختر مسارك الكوني</h2>
+        
+        <div class="portal-grid">
+            <div class="planet-btn" onclick="enterGalaxy('food')">
+                <div class="planet food-planet"></div>
+                <span>المأكولات</span>
+            </div>
+            <div class="planet-btn" onclick="enterGalaxy('drinks')">
+                <div class="planet drink-planet"></div>
+                <span>المشروبات</span>
+            </div>
+        </div>
+    </div>
+    <header class="space-control-center">
+    <div class="header-actions-right">
+        <button class="action-btn support-btn" onclick="contactSupport()" title="خدمة العملاء">
+            <i class="fas fa-headset"></i>
+            <span class="pulse-ring"></span>
+        </button>
+        <button class="action-btn theme-toggle" onclick="toggleTheme()" title="تغيير المود">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <div class="header-center">
+        <div class="search-box-space">
+            <input type="text" id="searchInput" placeholder="ابحث في المجرة..." onkeyup="searchProducts()">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+    </div>
+
+    <div class="header-actions-left">
+        <button class="action-btn" onclick="openSpaceGame()" title="العب واستنى الأكل">
+            <i class="fas fa-rocket"></i>
+        </button>
+    </div>
+</header>
+
+<div id="game-modal" class="modal-overlay">
+    <div class="game-card">
+        <span class="close-game" onclick="closeSpaceGame()">&times;</span>
+        
+        <div class="game-header">
+            <h3>🚀 رحلة الصاروخ</h3>
+            <p>اهرب من النيازك لحد ما الأكل يجهز!</p>
+        </div>
+
+        <div class="canvas-wrapper">
+            <canvas id="spaceGameCanvas" width="300" height="400"></canvas>
+        </div>
+
+        <div id="game-score" class="score-board">النقاط: 0</div>
+        <button id="restart-btn" class="restart-btn" onclick="startGame()" style="display:none;">حاول مرة أخرى 🛰️</button>
+    </div>
+</div>
+    
+
+    <div id="main-menu" style="display: none;">
+        <header class="luxury-header">
+            <button class="back-btn" onclick="exitToPortal()"><i class="fas fa-chevron-right"></i></button>
+  
+            <div class="logo-area">
+                <div class="logo-icon-small"></div>
+                <h1>The 9 Space</h1>
+            </div>
+        </header>
+
+        <main>
+            <section class="category-nav" id="dynamic-nav">
+                </section>
+            <div id="products-container" class="products-list"></div>
+        </main>
+    </div>
+
+    <div id="floating-cart" class="cart-floating-btn" onclick="toggleCart(true)" style="display: none;">
+        <span id="cart-counter" class="counter-badge">0</span>
+        <i class="fas fa-rocket"></i>
+    </div>
+
+    <div id="order-toast" class="gold-toast">تم رصد  في السفينة 🛸</div>
+
+    <div class="waiter-btn-container" onclick="openWaiterModal()">
+        <span class="bell-icon">📡</span>
+        <span class="btn-text"> كابتن اوردر</span>
+    </div>
+
+    <div id="waiter-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeWaiterModal()">&times;</span>
+            <div class="modal-header">
+                <h3>📡 نداء للكابتن</h3>
+                <p>حدد رقم الطاولة</p>
+            </div>
+            <div class="modal-body">
+                <input type="number" id="table-number" placeholder="رقم الطاولة..." class="waiter-input">
+                <button class="confirm-waiter-btn" onclick="sendWaiterRequest()">إرسال الطلب</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="cart-sidebar" class="sidebar-cart">
+        <div class="sidebar-head">
+            <h3>طلباتك 🛸</h3>
+            <span class="close-btn" onclick="toggleCart(false)">×</span>
+        </div>
+        <div id="sidebar-content" class="sidebar-body"></div>
+        <div class="sidebar-footer">
+            <div class="total-bar">التكلفة: <span id="total-price">0</span> ج.م</div>
+            <input type="number" id="table-num" placeholder="رقم الطاولة" class="luxury-input">
+            <textarea id="order-notes" placeholder="ملاحظات اضافيه..." class="luxury-input" rows="2"></textarea>
+            <button class="order-whatsapp-btn" onclick="sendOrder()">تأكيد الطلب <i class="fab fa-whatsapp"></i></button>
+        </div>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+</html>

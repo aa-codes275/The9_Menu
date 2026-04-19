@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 9 - System Secure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&family=Orbitron:wght@500;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* التنسيق الفضائي اللي اتفقنا عليه */
+        :root { --neon-blue: #00d4ff; --neon-purple: #9d50bb; --deep-dark: #020817; }
+        body { background: var(--deep-dark); color: white; font-family: 'Cairo', sans-serif; margin: 0; text-align: center; }
+        
+        .admin-table-container { width: 95%; max-width: 1000px; margin: 30px auto; background: rgba(10, 25, 47, 0.8); backdrop-filter: blur(15px); border-radius: 20px; border: 1px solid var(--neon-blue); overflow-x: auto; }
+        .admin-table { width: 100%; border-collapse: collapse; }
+        .admin-table th { background: rgba(0, 212, 255, 0.1); color: var(--neon-blue); padding: 20px; border-bottom: 2px solid var(--neon-blue); }
+        .admin-table td { padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        
+        .price-input { width: 80px; background: #000; border: 1px solid var(--neon-purple); color: #fff; padding: 8px; border-radius: 8px; text-align: center; }
+        .save-btn { background: var(--neon-blue); color: #000; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .save-btn:disabled { background: #555; cursor: not-allowed; }
+        
+        #admin-login { max-width: 400px; margin: 100px auto; padding: 30px; border: 2px solid var(--neon-blue); border-radius: 20px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 style="font-family: 'Orbitron'; color: var(--neon-blue); margin-top: 40px;">THE 9 CONTROL</h1>
+    </header>
+
+    <div id="admin-login">
+        <h3>أدخل الشفرة</h3>
+        <input type="password" id="admin-pass" placeholder="Password" style="width: 80%; padding: 10px; margin-bottom: 15px; border-radius: 8px; border: none;">
+        <br>
+        <button onclick="checkPass()" style="padding: 10px 30px; background: var(--neon-blue); border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">دخول</button>
+    </div>
+
+    <div id="admin-content" style="display: none;">
+        <div class="admin-table-container">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>المنتج</th>
+                        <th>السعر الحالي</th>
+                        <th>تحديث</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-list">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // تأكد إن البيانات دي صحيحة من حسابك في Supabase
+        const SUPABASE_URL = 'https://kmctbfolqqtpfxulmnme.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_kyWvTw6HcKUecHCJzOi_gw_Kho6l0P3'; 
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        function checkPass() {
+            const pass = document.getElementById('admin-pass').value;
+            if(pass === "1234") { 
+                document.getElementById('admin-login').style.display = "none";
+                document.getElementById('admin-content').style.display = "block";
+                loadAdminMenu();
+            } else { alert("الباسورد غلط ❌"); }
+        }
+
+        async function loadAdminMenu() {
+            try {
+                const { data, error } = await _supabase.from('products').select('*').order('name');
+                if (error) throw error;
+
+                const list = document.getElementById('admin-list');
+                list.innerHTML = data.map(p => `
+                    <tr>
+                        <td>${p.name}</td>
+                        <td><input type="number" id="p-${p.id}" value="${p.price}" class="price-input"></td>
+                        <td><button class="save-btn" onclick="updatePrice(${p.id}, this)">حفظ</button></td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                console.error("Error Loading:", err);
+                alert("مشكلة في التحميل: " + err.message);
+            }
+        }
+
+        async function updatePrice(id, btn) {
+            const newVal = document.getElementById(`p-${id}`).value;
+            btn.disabled = true;
+            btn.innerText = "جاري..";
+
+            try {
+                const { error } = await _supabase
+                    .from('products')
+                    .update({ price: parseFloat(newVal) })
+                    .eq('id', id);
+
+                if (error) throw error;
+                
+                btn.innerText = "تم ✅";
+                btn.style.background = "#00ff96";
+                setTimeout(() => {
+                    btn.innerText = "حفظ";
+                    btn.style.background = "var(--neon-blue)";
+                    btn.disabled = false;
+                }, 2000);
+
+            } catch (err) {
+                alert("فشل التحديث: " + err.message);
+                btn.innerText = "فشل ❌";
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

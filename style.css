@@ -1,0 +1,877 @@
+:root {
+    --space-blue: #020817;
+    --neon-blue: #00d4ff;
+    --neon-yellow: #f1c40f; /* اللون الأصفر اللي طلبته للأسعار */
+    --alien-purple: #9d00ff;
+    --glass: rgba(255, 255, 255, 0.05);
+    --border-neon: rgba(0, 212, 255, 0.3);
+}
+
+body {
+    margin: 0;
+    font-family: 'Cairo', sans-serif;
+    background: var(--space-blue);
+    color: white;
+    direction: rtl;
+    overflow-x: hidden;
+}
+/* حاوية الهيدر الرئيسية */
+.space-control-center {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /* تقسيم 3 مناطق */
+    align-items: center;
+    padding: 15px 10px;
+    background: rgba(2, 8, 23, 0.8);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--border-neon);
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+}
+
+/* أزرار الأكشن (يمن وشمال) */
+.header-actions-right, .header-actions-left {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.action-btn {
+    background: var(--glass);
+    border: 1px solid var(--border-neon);
+    color: var(--neon-blue);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+}
+
+.action-btn:hover {
+    background: var(--neon-blue);
+    color: #000;
+    box-shadow: 0 0 20px var(--neon-blue);
+}
+
+/* صندوق البحث الفضائي */
+.header-center {
+    display: flex;
+    justify-content: center;
+}
+
+.search-box-space {
+    position: relative;
+    width: 100%;
+    max-width: 200px;
+}
+
+#searchInput {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-neon);
+    border-radius: 20px;
+    padding: 8px 35px 8px 15px;
+    color: white;
+    font-family: 'Cairo', sans-serif;
+    outline: none;
+    font-size: 13px;
+    transition: 0.3s;
+}
+
+#searchInput:focus {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.search-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--neon-blue);
+    font-size: 14px;
+}
+/* تعديل توزيع الهيدر عشان الزرار يظهر في الموبايل */
+@media screen and (max-width: 400px) {
+    .space-control-center {
+        /* تعديل: جعل العمود اليمين والشمال متساويين (60px لكل واحد) */
+        grid-template-columns: 70px 1fr 70px !important; 
+        padding: 10px 5px;
+    }
+    
+    #searchInput { 
+        font-size: 11px; 
+        padding: 8px 25px 8px 10px; /* تصغير البادينج عشان المساحة */
+    }
+
+    .action-btn {
+        width: 32px; /* تصغير حجم الزرار شوية في الموبايل عشان الزحمة */
+        height: 32px;
+    }
+}
+
+.stars-overlay {
+    position: fixed; 
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+    url('5JSFIGJRIJKMGOO20025565.jpg');
+    z-index: -1;
+     opacity: 0.5;
+}
+
+
+/* شاشة البوابة */
+.portal-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.logo-space-main { 
+    display: flex;
+     align-items: center; 
+     gap: 15px; 
+     margin-bottom: 30px;
+     }
+
+.nine-text,
+.the-text {
+     font-family: 'Orbitron', sans-serif; font-size: 30px;
+      color: var(--neon-blue); 
+      text-shadow: 0 0 10px var(--neon-blue);
+     }
+.nine-orbit {
+     width: 60px;
+      height: 60px; 
+      border: 2px solid var(--neon-blue); 
+      border-radius: 50%; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 24px; 
+      box-shadow: 0 0 15px var(--neon-blue); 
+      animation: rotate 5s linear infinite; 
+    }
+
+@keyframes
+ rotate {
+     from {transform: rotate(0deg);} 
+     to{ transform: rotate(360deg); } 
+        }
+
+.portal-grid { display: flex; gap: 40px; }
+.planet-btn { cursor: pointer; transition: 0.3s; }
+.planet-btn:hover { transform: scale(1.1); }
+.planet {
+     width: 120px;
+     height: 120px;
+     border-radius: 50%;
+     margin-bottom: 15px;
+     box-shadow: inset -10px -10px 20px rgba(0,0,0,0.5);
+         }
+.food-planet {
+     background: radial-gradient(circle at 30% 30%, #ff5e62, #ff9966);
+     box-shadow: 0 0 30px rgba(255, 94, 98, 0.4); 
+    }
+.drink-planet {
+     background: radial-gradient(circle at 30% 30%, #00d4ff, #0055ff); 
+     box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+     }
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Orbitron:wght@600;900&display=swap');
+
+.luxury-header h1 {
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 10px rgba(0, 191, 255, 0.8);
+    color: #fff;
+    text-align: center;
+}
+.category-nav {
+     display: flex;
+     overflow-x: auto;
+     gap: 10px;
+     padding: 15px; 
+     white-space: nowrap;
+     }
+.nav-item {
+     background: var(--glass);
+     padding: 8px 20px;
+     border-radius: 20px; 
+     border: 1px solid var(--border-neon); 
+     color: var(--neon-blue); 
+     cursor: pointer;
+     transition: 0.3s; 
+    }
+.nav-item.active { 
+    background: var(--neon-blue); 
+    color: #000; 
+    font-weight: 900; 
+    box-shadow: 0 0 15px var(--neon-blue);
+ }
+
+/* الكارت (نفس نظامك القديم بس بلمسة فضائية) */
+.mini-card {
+    display: flex;
+    align-items: center; 
+    background: var(--glass);
+    border: 1px solid var(--border-neon); 
+    border-radius: 15px;
+    padding: 10px; 
+    margin: 10px auto; 
+    max-width: 90%;
+    backdrop-filter: blur(5px);
+}
+.mini-card img {
+      width: 80px;
+      height: 80px; 
+      border-radius: 12px; 
+      object-fit: cover; 
+      border: 1px solid var(--border-neon); 
+    }
+.product-info { 
+    flex: 1; 
+    margin-right: 12px;
+ }
+.product-info h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #fff; 
+}
+.product-desc { font-size: 11px; 
+    color: #aaa; 
+    margin: 4px 0; 
+}
+.price-tag { 
+    color: var(--neon-yellow); 
+    font-weight: bold; 
+    font-size: 15px; 
+} 
+
+.add-btn { 
+    background: var(--neon-blue);
+     color: #000; 
+     border: none; 
+     border-radius: 10px; 
+     padding: 8px 15px; 
+     font-weight: bold; 
+     cursor: pointer;
+     }
+
+/* السلة والويتر */
+.cart-floating-btn { 
+    position: fixed; 
+    bottom: 25px; 
+    right: 25px; 
+    background: var(--neon-blue);
+    width: 60px; 
+    height: 60px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 24px; color: #000; 
+    z-index: 1000; 
+    box-shadow: 0 0 20px var(--neon-blue);
+ }
+.waiter-btn-container {
+     position: fixed; 
+     bottom: 25px; 
+     left: 25px; 
+     background: rgba(157, 0, 255, 0.2); 
+     border: 1px solid var(--alien-purple); 
+     padding: 10px 20px; 
+     border-radius: 30px; 
+     color: var(--alien-purple); 
+     cursor: pointer; 
+     z-index: 1000; 
+     box-shadow: 0 0 15px var(--alien-purple); 
+    }
+/* --- التحديث النهائي للسلة (المشحونات) --- */
+.sidebar-cart {
+    position: fixed !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 320px !important;
+    height: 100vh !important;
+    background: rgba(10, 25, 47, 0.96) !important;
+    backdrop-filter: blur(15px) !important;
+    border-right: 2px solid var(--neon-blue) !important;
+    box-shadow: 0 0 40px rgba(0, 212, 255, 0.3) !important;
+    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    z-index: 3000 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.sidebar-cart.active {
+    left: 0 !important;
+}
+
+/* --- رأس السلة (الهيدر) --- */
+.sidebar-head {
+    padding: 20px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    border-bottom: 1px solid rgba(0, 212, 255, 0.1) !important;
+}
+
+.sidebar-head h2 {
+    margin: 0;
+    font-size: 20px;
+    color: var(--neon-blue);
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* --- زر الإغلاق (X) الاحترافي --- */
+.close-cart {
+    font-size: 28px !important;
+    color: #ff4d4d !important; /* أحمر نيون */
+    cursor: pointer !important;
+    transition: 0.3s !important;
+    text-shadow: 0 0 10px rgba(255, 77, 77, 0.5) !important;
+    padding: 5px !important;
+}
+
+.close-cart:hover {
+    transform: rotate(90deg) scale(1.2) !important;
+    color: #ff0000 !important;
+}
+
+/* --- عناصر الطلبات (المنيو اللي جوه السلة) --- */
+.cart-item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    margin: 8px 15px !important;
+    padding: 12px !important;
+    border-radius: 15px !important;
+    border: 1px solid rgba(0, 212, 255, 0.1) !important;
+}
+
+/* --- زرار الحذف (سلة المهملات) --- */
+.remove-item {
+    font-size: 22px !important;
+    color: #ff4d4d !important;
+    cursor: pointer !important;
+    transition: 0.2s !important;
+    padding: 5px !important;
+    display: flex !important;
+    align-items: center;
+}
+
+.remove-item:hover {
+    color: #ff0000 !important;
+    transform: scale(1.1) !important;
+}
+
+/* --- خانات الإدخال الفخمة --- */
+.luxury-input {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(0, 212, 255, 0.3) !important;
+    color: white !important;
+    width: 90% !important;
+    padding: 14px !important;
+    margin: 10px auto !important;
+    border-radius: 12px !important;
+    text-align: center !important;
+    font-family: 'Cairo', sans-serif !important;
+    outline: none !important;
+}
+
+/* --- زرار الواتساب (التأكيد) --- */
+.order-whatsapp-btn {
+    background: linear-gradient(135deg, #00d4ff, #0055ff) !important;
+    color: white !important;
+    border: none !important;
+    padding: 18px !important;
+    border-radius: 14px !important;
+    width: 90% !important;
+    margin: 20px auto !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4) !important;
+    cursor: pointer !important;
+}
+/* الخلفية المعتمة خلف الكرت */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85); /* تعتيم أقوى للتركيز */
+    backdrop-filter: blur(8px); /* زغللة خلفية لزيادة العمق */
+    z-index: 3000;
+    transition: 0.3s;
+}
+
+/* الكرت نفسه */
+.modal-content {
+    background: linear-gradient(145deg, #051024, #0a1f44); /* تدرج كحلي عميق */
+    border: 2px solid var(--neon-blue);
+    width: 85%;
+    max-width: 380px;
+    margin: 15% auto;
+    padding: 30px;
+    border-radius: 25px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 0 40px rgba(0, 212, 255, 0.25), 
+                inset 0 0 15px rgba(0, 212, 255, 0.1);
+    position: relative;
+    font-family: 'Cairo', sans-serif;
+}
+
+/* عنوان المودال */
+.modal-header h3 {
+    color: var(--neon-blue);
+    font-size: 22px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+.modal-header p {
+    color: #ccc;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* خانة إدخال رقم الطاولة داخل المودال */
+.waiter-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid var(--border-neon) !important;
+    color: white !important;
+    padding: 15px !important;
+    margin-bottom: 20px !important;
+    border-radius: 12px !important;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.waiter-input:focus {
+    border-color: var(--neon-blue) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
+
+/* زر إرسال النبضة (التأكيد) */
+.confirm-waiter-btn {
+    background: linear-gradient(135deg, var(--neon-blue), #0055ff) !important;
+    color: #000 !important;
+    border: none !important;
+    width: 100%;
+    padding: 15px !important;
+    border-radius: 12px !important;
+    font-weight: 900 !important;
+    font-size: 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+}
+
+.confirm-waiter-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.5);
+    filter: brightness(1.2);
+}
+
+/* زر الإغلاق (X) */
+.close-modal {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 24px;
+    color: #888;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.close-modal:hover {
+    color: #ff4d4d;
+}
+/* 1. تنسيق الكوكب الأساسي (الدائرة اللي في النص) */
+.planet {
+    width: 120px;          /* الحجم اللي يريحك */
+    height: 120px;
+    border-radius: 50%;    /* عشان يفضل دائري */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    z-index: 2;
+    border: 3px solid rgba(255, 255, 255, 0.3); /* إطار خفيف */
+    transition: all 0.4s ease;
+}
+
+/* 2. كوكب المأكولات (الخلفية والشعاع) */
+.food-planet {
+    background-image: url('a9d7c57b-ac23-4ac9-a56b-0083e80ad64c.jpg'); /* حط اسم صورتك هنا */
+    /* الشعاع البرتقالي المحيط بالكوكب */
+    box-shadow: 0 0 20px 5px rgba(255, 69, 0, 0.5), 
+                0 0 50px 15px rgba(255, 140, 0, 0.3);
+}
+
+/* 3. كوكب المشروبات (الخلفية والشعاع) */
+.drink-planet {
+    background-image: url('0dbf7915-1827-4467-99b0-52af2b57fdbc.jpg'); /* حط اسم صورتك هنا */
+    /* الشعاع الأزرق المحيط بالكوكب */
+    box-shadow: 0 0 20px 5px rgba(0, 191, 255, 0.5), 
+                0 0 50px 15px rgba(0, 0, 255, 0.3);
+}
+
+/* 4. تأثير عند تمرير الماوس (Hover) */
+.planet-btn:hover .planet {
+    transform: scale(1.1); /* يكبر شوية */
+    filter: brightness(1.2); /* ينور أكتر */
+    box-shadow: 0 0 30px 10px rgba(255, 255, 255, 0.4); /* هالة بيضاء خفيفة عند اللمس */
+}
+/* --- زر العودة الفضائي (إضافة جديدة مضمونة) --- */
+.back-btn, [class*="back-button"], .return-btn {
+    width: 45px !important;
+    height: 45px !important;
+    background: rgba(10, 25, 47, 0.8) !important; /* خلفية كحلي شفافة */
+    border: 2px solid #00d4ff !important; /* إطار نيون أزرق */
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #00d4ff !important;
+    font-size: 20px !important;
+    cursor: pointer !important;
+    position: fixed !important; /* عشان يفضل ثابت مكانه */
+    top: 20px !important;
+    right: 20px !important; /* لو الموقع عربي خليها right */
+    z-index: 5000 !important;
+    transition: 0.4s all ease !important;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.5) !important;
+}
+
+/* حركة التوهج والدوران عند اللمس */
+.back-btn:hover, [class*="back-button"]:hover {
+    background: #00d4ff !important;
+    color: #051024 !important;
+    box-shadow: 0 0 30px #00d4ff !important;
+    transform: scale(1.1) rotate(-10deg) !important;
+}
+
+/* السهم اللي جوه الدائرة */
+.back-btn i {
+    filter: drop-shadow(0 0 5px #00d4ff) !important;
+}
+/* --- تنسيق عنوان "اختر مسارك الكوني" --- */
+.portal-heading {
+    font-size: 2.8rem !important; /* حجم كبير مريح للعين */
+    font-weight: 900 !important;
+    text-align: center !important;
+    margin: 40px 0 !important;
+    font-family: 'Cairo', sans-serif !important;
+    
+    /* تدرج ألوان "سديم" فضائي (أزرق نيون، موف، وردي) */
+    background: linear-gradient(120deg, #00d4ff, #9d50bb, #ff00c8, #00d4ff) !important;
+    background-size: 200% auto !important;
+    
+    /* تفريغ الألوان جوه الحروف */
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    
+    /* أنيميشن تدفق الألوان */
+    animation: portal-flow 5s linear infinite !important;
+    
+    /* توهج هولوجرامي (Glow) */
+    filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.6)) !important;
+    letter-spacing: 1px !important;
+    position: relative;
+}
+
+
+
+/* حركة تدفق الألوان الكونية */
+@keyframes portal-flow {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+/* إضافة لمسة خط نيون تحت الكلمة */
+.portal-heading::after {
+    content: '';
+    display: block;
+    width: 150px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+    margin: 10px auto 0;
+    box-shadow: 0 0 10px #00d4ff;
+    border-radius: 10px;
+}
+
+/* تنسيقات الوضع الفاتح */
+body.light-mode {
+    background: #f0f2f5;
+    color: #1a1a1a;
+}
+
+body.light-mode .stars-overlay {
+    opacity: 0.1; /* تخفيف النجوم جداً */
+}
+
+body.light-mode .mini-card {
+    background: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+body.light-mode .product-info h3 { color: #000; }
+body.light-mode .price-tag { color: #d35400; } /* برتقالي غامق بدل الأصفر */
+
+body.light-mode .space-control-center {
+    background: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid #ccc;
+}
+
+body.light-mode #searchInput {
+    background: #eee;
+    color: #000;
+    border-color: #bbb;
+}
+/* تنسيق زرار خدمة العملاء الفضائي */
+.support-btn {
+    position: relative;
+    color: var(--neon-blue) !important;
+    border-color: var(--neon-blue) !important;
+    overflow: visible !important;
+}
+
+/* تأثير النبض حول الزرار */
+.pulse-ring {
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    border: 2px solid var(--neon-blue);
+    border-radius: 50%;
+    animation: space-pulse 2s infinite;
+    pointer-events: none;
+}
+
+@keyframes space-pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* في حالة الـ Red Mode يتغير النبض للأحمر */
+body.red-mode .support-btn, 
+body.red-mode .pulse-ring {
+    color: #ff0000 !important;
+    border-color: #ff0000 !important;
+}
+/* تنسيق شاشة اللعبة المنبثقة */
+#game-modal.modal-overlay {
+    display: none; /* مخفي افتراضياً */
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.9); /* خلفية سوداء شفافة */
+    backdrop-filter: blur(10px);
+    z-index: 9999; /* فوق كل حاجة */
+    align-items: center;
+    justify-content: center;
+}
+
+/* الكارت اللي شايل اللعبة */
+.game-card {
+    background: linear-gradient(145deg, #051024, #0a1f44);
+    border: 2px solid var(--neon-blue);
+    border-radius: 25px;
+    padding: 20px;
+    position: relative;
+    width: 90%;
+    max-width: 350px;
+    text-align: center;
+    box-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
+    animation: zoomIn 0.3s ease-out;
+}
+
+/* زرار الإغلاق (X) */
+.close-game {
+    position: absolute;
+    top: 10px;
+    left: 15px; /* عشان الموقع RTL */
+    font-size: 30px;
+    color: #ff4d4d;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 10;
+}
+
+.close-game:hover {
+    transform: scale(1.2) rotate(90deg);
+}
+
+.canvas-wrapper {
+    margin: 15px 0;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+#spaceGameCanvas {
+    background: #000 url('https://www.transparenttextures.com/patterns/stardust.png');
+    display: block;
+    margin: 0 auto;
+    cursor: crosshair;
+}
+
+.score-board {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--neon-yellow);
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.restart-btn {
+    background: var(--neon-blue);
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+/* الألوان الأساسية (الأزرق) */
+:root {
+    --main-neon: #00d4ff;
+    --main-glow: rgba(0, 212, 255, 0.5);
+    --bg-dark: #020817;
+}
+
+/* تحويل الألوان للأحمر الموهج عند تفعيل الـ Red Mode */
+body.red-mode {
+    --main-neon: #ff0000; /* أحمر صريح */
+    --main-glow: rgba(255, 0, 0, 0.7);
+}
+
+/* تطبيق التغيير على كل العناصر بضغطة واحدة */
+body.red-mode .nav-item.active,
+body.red-mode .add-btn,
+body.red-mode .cart-floating-btn,
+body.red-mode .order-whatsapp-btn,
+body.red-mode .confirm-waiter-btn {
+    background: var(--main-neon) !important;
+    box-shadow: 0 0 20px var(--main-glow) !important;
+    color: #fff !important;
+}
+
+body.red-mode .price-tag,
+body.red-mode .action-btn,
+body.red-mode .nine-text,
+body.red-mode .the-text,
+body.red-mode .nine-orbit {
+    color: var(--main-neon) !important;
+    border-color: var(--main-neon) !important;
+    text-shadow: 0 0 10px var(--main-neon) !important;
+}
+
+body.red-mode .mini-card,
+body.red-mode #searchInput,
+body.red-mode .nav-item {
+    border-color: var(--main-neon) !important;
+}
+
+
+
+@media screen and (max-width: 600px) {
+    
+   
+    .glass-header {
+        padding: 10px;
+    }
+    .glass-header h1 {
+        font-size: 18px;
+    }
+
+   
+    .category-nav {
+        gap: 8px;
+        padding: 10px 5px;
+        -webkit-overflow-scrolling: touch; 
+    }
+    .nav-item {
+        padding: 6px 14px;
+        font-size: 12px;
+    }
+
+ 
+    .mini-card {
+        width: 92%; 
+        max-width: none;
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .mini-card img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .product-info h3 {
+        font-size: 14px;
+        margin-bottom: 2px;
+    }
+
+   
+    .glass-select {
+        height: 30px;
+        font-size: 12px;
+    }
+
+    .add-btn {
+        padding: 8px 12px;
+        font-size: 11px;
+    }
+
+  
+    .sidebar-cart {
+        width: 85%;
+    }
+
+
+    .cart-floating-btn {
+        width: 50px;
+        height: 50px;
+        bottom: 15px;
+        right: 15px;
+    }
+
+    .mini-toast {
+        width: auto;
+        left: 20px;
+        right: 20px;
+        text-align: center;
+        bottom: 80px;
+    }
+}
+
+
+.category-nav::-webkit-scrollbar {
+    display: none;
+}
