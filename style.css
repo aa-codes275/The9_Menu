@@ -96,6 +96,26 @@ body {
     color: var(--neon-blue);
     font-size: 14px;
 }
+.space-control-center {
+    display: flex;
+    /* لأن الموقع RTL، الـ flex-end هيحدفهم أقصى الشمال */
+    justify-content: flex-end; 
+    padding: 10px 20px;
+}
+
+.header-all-left {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* المسافة بين كل عنصر والتاني */
+}
+
+/* عشان السيرش مياخدش مساحة كبيرة ويلم جنبهم */
+.search-box-space {
+    width: 180px; /* صغر العرض عشان يلموا كلهم على الشمال */
+    margin: 0;
+}
+
+/* لو لقيتهم لسه على اليمين، غير flex-end لـ flex-start */
 
 /* تعديل للموبايل */
 @media screen and (max-width: 400px) {
@@ -789,6 +809,57 @@ body.red-mode #searchInput,
 body.red-mode .nav-item {
     border-color: var(--main-neon) !important;
 }
+/* تنسيق الهيدر اللي فيه السيرش */
+.space-control-center {
+    display: flex;
+    justify-content: flex-end; /* يحدفهم شمال في الـ RTL */
+    padding: 10px 15px;
+    background: rgba(2, 8, 23, 0.95);
+    border-bottom: 1px solid var(--neon-blue);
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+}
+
+.header-all-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-box-space {
+    width: 150px; /* عرض مناسب جداً للموبايل */
+    position: relative;
+}
+
+/* سطر اللوجو وسهم العودة */
+.logo-row-new {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 20px 0;
+}
+
+.back-arrow-btn {
+    position: absolute;
+    right: 15px; /* فوق كلمة فطار بالظبط */
+    background: transparent;
+    border: none;
+    color: var(--neon-blue);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* حل مشكلة الموبايل النهائية */
+@media screen and (max-width: 480px) {
+    .search-box-space {
+        width: 110px; /* يلم السيرش أكتر عشان الزراير متختفيش */
+    }
+    .header-all-left {
+        gap: 5px;
+    }
+}
 
 
 
@@ -863,6 +934,7 @@ body.red-mode .nav-item {
         bottom: 80px;
     }
 }
+
 
 
 .category-nav::-webkit-scrollbar {
