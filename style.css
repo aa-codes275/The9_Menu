@@ -70,7 +70,7 @@ body {
 }
 
 #searchInput {
-    width: 100%;
+    width: 30%;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--border-neon);
     border-radius: 20px;
@@ -96,23 +96,13 @@ body {
     color: var(--neon-blue);
     font-size: 14px;
 }
-/* تعديل توزيع الهيدر عشان الزرار يظهر في الموبايل */
+
+/* تعديل للموبايل */
 @media screen and (max-width: 400px) {
     .space-control-center {
-        /* تعديل: جعل العمود اليمين والشمال متساويين (60px لكل واحد) */
-        grid-template-columns: 70px 1fr 70px !important; 
-        padding: 10px 5px;
+        grid-template-columns: 80px 1fr 40px;
     }
-    
-    #searchInput { 
-        font-size: 11px; 
-        padding: 8px 25px 8px 10px; /* تصغير البادينج عشان المساحة */
-    }
-
-    .action-btn {
-        width: 32px; /* تصغير حجم الزرار شوية في الموبايل عشان الزحمة */
-        height: 32px;
-    }
+    #searchInput { font-size: 11px; }
 }
 
 .stars-overlay {
@@ -752,6 +742,9 @@ body.red-mode .pulse-ring {
     margin-top: 10px;
     cursor: pointer;
 }
+
+
+
 
 @keyframes zoomIn {
     from { transform: scale(0.5); opacity: 0; }
