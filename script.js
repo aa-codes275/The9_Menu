@@ -1,5 +1,4 @@
 
-// 1. تهيئة Supabase
 const SUPABASE_URL = 'https://kmctbfolqqtpfxulmnme.supabase.co'; 
 const SUPABASE_KEY = 'sb_publishable_kyWvTw6HcKUecHCJzOi_gw_Kho6l0P3'; 
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -33,7 +32,7 @@ const categories = {
     drinks: ['مشروبات باردة', 'مشروبات ساخنة', 'فرابيه', 'عصائر فريش', 'ميلك شيك', 'الكوكتيلات',  'آيس كريم']
 };
 
-// جلب البيانات من Supabase
+
 async function loadMenu() {
     try {
         const { data, error } = await _supabase.from('products').select('*');
@@ -45,7 +44,7 @@ async function loadMenu() {
     }
 }
 
-let currentGalaxyType = 'food'; // متغير عالمي لحفظ مكانك
+let currentGalaxyType = 'food'; 
 
 function enterGalaxy(type) {
     currentGalaxyType = type;
@@ -56,7 +55,7 @@ function enterGalaxy(type) {
     const selected = categories[type];
     
     nav.innerHTML = selected.map((cat, i) => {
-        // لو اللغة إنجليزي، بنجيب الاسم من الـ map، لو مش موجود بنسيب العربي
+       
         const displayName = currentLang === 'en' && categoryMap[cat] ? categoryMap[cat].en : cat;
         return `
             <div class="nav-item ${i === 0 ? 'active' : ''}" 
@@ -66,29 +65,29 @@ function enterGalaxy(type) {
     
     showCategory(selected[0]);
 }
-// زرار العودة (الخروج للبوابة)
+
 function exitToPortal() {
     document.getElementById('main-menu').style.display = 'none';
     document.getElementById('start-screen').style.display = 'flex';
 }
 
-// عرض الأصناف بناءً على القسم
+
 function showCategory(catArabic, element) {
-    // تحديث شكل الزرار النشط
+  
     document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
     if(element) element.classList.add('active');
     
-    // ربط الاسم العربي بالاسم اللي في الداتا بيز
+  
     const dbInfo = categoryMap[catArabic];
     const dbName = dbInfo ? dbInfo.db : catArabic;
     
-    // فلترة الأكل
+    
     const filtered = menuData.filter(p => p.category === dbName);
     
-    // إرسال الأكل المفلتر لدالة العرض
+
     renderProducts(filtered); 
 }
-// وظائف السلة
+
 function addToCart(id) {
     const product = menuData.find(item => item.id === id);
     if(product) {
@@ -127,7 +126,7 @@ function toggleCart(show) {
     document.getElementById('cart-sidebar').classList.toggle('active', show);
 }
 
-// طلب الويتر (إشارة الاستغاثة)
+
 function openWaiterModal() {
     document.getElementById('waiter-modal').style.display = 'flex';
 }
@@ -145,7 +144,7 @@ function sendWaiterRequest() {
     closeWaiterModal();
 }
 
-// إرسال الطلب واتساب
+
 function sendOrder() {
     const table = document.getElementById('table-num').value;
     const notes = document.getElementById('order-notes').value;
@@ -174,20 +173,20 @@ function showToast() {
 
 
 
-// --- 1. تبديل الوضع (من أزرق لأحمر متوهج) ---
+
 function toggleTheme() {
     document.body.classList.toggle('red-mode');
     const icon = document.querySelector('.theme-toggle i');
     
-    // تغيير شكل الأيقونة
+   
     if(document.body.classList.contains('red-mode')) {
-        icon.classList.replace('fa-moon', 'fa-fire'); // أيقونة نار للأحمر
+        icon.classList.replace('fa-moon', 'fa-fire'); 
     } else {
         icon.classList.replace('fa-fire', 'fa-moon');
     }
 }
 
-// --- 2. تبديل اللغة التلقائي ---
+
 let currentLang = 'ar';
 const translations = {
     ar: { search: "ابحث في المجرة...", portal: "اختر مسارك الكوني", food: "المأكولات", drinks: "المشروبات" },
@@ -195,18 +194,18 @@ const translations = {
 };
 
 
-// --- 3. السيرش اللي "بيجيب من الآخر" ---
+
 function searchProducts() {
     const term = document.getElementById('searchInput').value.toLowerCase();
     
-    // بنعمل فلتر على المصفوفة الكبيرة اللي شلناها من Supabase
+    
     const filtered = menuData.filter(p => {
         const name = p.name ? p.name.toLowerCase() : '';
         const desc = p.description ? p.description.toLowerCase() : '';
         return name.includes(term) || desc.includes(term);
     });
 
-    renderProducts(filtered); // الدالة اللي بتعرض الكروت
+    renderProducts(filtered);
 }
 function renderProducts(products) {
     const container = document.getElementById('products-container');
@@ -215,7 +214,7 @@ function renderProducts(products) {
     container.innerHTML = ""; 
     
     products.forEach(p => {
-        // السطر ده هو السر: لو اللغة إنجليزي بيجيب name_en
+       
         const displayName = currentLang === 'en' ? (p.name_en || p.name) : p.name;
         const displayDesc = currentLang === 'en' ? (p.description_en || p.description) : (p.description || "");
 
@@ -232,26 +231,26 @@ function renderProducts(products) {
     });
 }
 
-// دالة تحديث المنيو عند تغيير اللغة
+
 function renderMenuAfterLangChange() {
-    // لو إنت فاتح قسم معين، بنعيد تحميله باللغة الجديدة
+   
     const activeNav = document.querySelector('.nav-item.active');
     if (activeNav) {
         showCategory(activeNav.innerText); 
     }
 }
 
-// دالة تحديث المنيو عند تغيير اللغة
+
 function renderMenuAfterLangChange() {
-    // لو إنت فاتح قسم معين، بنعيد تحميله باللغة الجديدة
+  
     const activeNav = document.querySelector('.nav-item.active');
     if (activeNav) {
         showCategory(activeNav.innerText); 
     }
 }
-// دالة خدمة العملاء لفتح واتساب مباشرة
+
 function contactSupport() {
-    const phoneNumber = "201123385820"; // رقمك
+    const phoneNumber = "201123385820";
     const message = "📡 نداء لـ Nine Space.. محتاج مساعدة من كابتن السفينة!";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     
@@ -284,7 +283,7 @@ function startGame() {
     let obstacles = [];
     let frame = 0;
 
-    // تحكم الموبايل والماوس
+
     canvas.onmousemove = (e) => {
         let rect = canvas.getBoundingClientRect();
         rocket.x = e.clientX - rect.left - rocket.w / 2;
@@ -300,20 +299,20 @@ function startGame() {
         
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        // رسم الصاروخ (إيموجي بسيط)
+      
         ctx.font = "25px serif";
         ctx.fillText("🚀", rocket.x, rocket.y);
 
-        // توليد عوائق (نيازك)
+       
         if (frame % 30 === 0) {
             obstacles.push({ x: Math.random() * (canvas.width - 20), y: -20, size: 20 + Math.random() * 20 });
         }
 
         obstacles.forEach((obs, index) => {
-            obs.y += 4 + (score / 100); // السرعة بتزيد مع الوقت
+            obs.y += 4 + (score / 100); 
             ctx.fillText("☄️", obs.x, obs.y);
 
-            // تصادم
+           
             if (rocket.x < obs.x + 20 && rocket.x + 20 > obs.x && rocket.y < obs.y + 20 && rocket.y + 20 > obs.y) {
                 gameActive = false;
                 alert("الأكل قرب يجهز! مجموع نقاطك: " + score);
@@ -341,9 +340,9 @@ function closeSpaceGame() {
 
 function openSpaceGame() {
     const modal = document.getElementById('game-modal');
-    modal.style.display = 'flex'; // استخدام flex عشان الـ CSS يوسطنها
+    modal.style.display = 'flex'; 
     startGame();
 }
 
-// تحميل المنيو عند تشغيل الصفحة
+
 document.addEventListener("DOMContentLoaded", loadMenu);
